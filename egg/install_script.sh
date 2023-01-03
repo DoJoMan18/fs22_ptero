@@ -26,6 +26,11 @@ fi
 
 apt install -y git
 
+git clone https://github.com/DoJoMan18/fs22_ptero ./temp
+cp -r ./temp/fsroot /mnt/server/
+chmod +x /mnt/server/start.sh
+rm -rf ./temp
+
 if [ ! -d /mnt/server ]; then
     mkdir -p /mnt/server/
 fi
