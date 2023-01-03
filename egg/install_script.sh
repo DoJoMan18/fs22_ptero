@@ -32,7 +32,7 @@ chmod +x /mnt/server/start.sh
 rm -rf ./temp
 
 if [ ! -d /mnt/server ]; then
-    mkdir -p /mnt/server/
+    mkdir -p /mnt/server/FS22
 fi
 
 ## download and install steamcmd
@@ -47,7 +47,7 @@ chown -R root:root /mnt
 export HOME=/mnt/server
 
 ## install game using steamcmd
-./steamcmd.sh +force_install_dir /mnt/server +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +@sSteamCmdForcePlatformType windows +app_update ${SRCDS_APPID} ${INSTALL_FLAGS} +quit ## other flags may be needed depending on install. looking at you cs 1.6
+./steamcmd.sh +force_install_dir /mnt/server/FS22 +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +@sSteamCmdForcePlatformType windows +app_update ${SRCDS_APPID} ${INSTALL_FLAGS} +quit ## other flags may be needed depending on install. looking at you cs 1.6
 
 # set up 32 bit libraries
 mkdir -p /mnt/server/.steam/sdk32
@@ -59,12 +59,8 @@ cp -v linux64/steamclient.so /mnt/server/.steam/sdk64/steamclient.so
 
 # Setting default variables
 if [ -n "${ADM_PASS}" ]; then
-    sed -i "s/<passphrase>webpassword<\/passphrase>/<passphrase>${ADM_PASS}<\/passphrase>/" /mnt/server/dedicatedServer.xml
+    sed -i "s/<passphrase>webpassword<\/passphrase>/<passphrase>${ADM_PASS}<\/passphrase>/" /mnt/server/FS22/dedicatedServer.xml
     sed -i "s/<admin_password><\/admin_password>/<admin_password>${ADM_PASS}<\/admin_password>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
-fi
-
-if [ -n "${HTTP_PORT}" ]; then
-    sed -i "s/listen 1234;/listen ${HTTP_PORT};/" /mnt/server/etc/nginx/sites-enabled/fs22
 fi
 
 if [ -n "${server.build.default.port}" ]; then

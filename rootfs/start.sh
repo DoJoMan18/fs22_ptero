@@ -6,4 +6,4 @@ echo "⟳ Starting Nginx..."
 
 echo "⟳ Starting FS22..."
 echo "✓ Successfully started"
-wine ./dedicatedServer.exe
+wine /home/container/FS22/dedicatedServer.exe
