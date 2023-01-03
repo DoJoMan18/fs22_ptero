@@ -66,7 +66,7 @@ if [[ $WINETRICKS_RUN =~ mono ]]; then
         WINETRICKS_RUN=${WINETRICKS_RUN/mono}
 
         if [ ! -f "$WINEPREFIX/mono.msi" ]; then
-                wget -q -O $WINEPREFIX/mono.msi https://dl.winehq.org/wine/wine-mono/7.3.0/wine-mono-7.3.0-x86.msi
+                wget -q -O $WINEPREFIX/mono.msi https://dl.winehq.org/wine/wine-mono/7.4.0/wine-mono-7.4.0-x86.msi
         fi
 
         wine msiexec /i $WINEPREFIX/mono.msi /qn /quiet /norestart /log $WINEPREFIX/mono_install.log
@@ -77,6 +77,8 @@ for trick in $WINETRICKS_RUN; do
         echo "Installing $trick"
         winetricks -q $trick
 done
+
+winetricks gdiplus
 
 # Replace Startup Variables
 MODIFIED_STARTUP=$(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
