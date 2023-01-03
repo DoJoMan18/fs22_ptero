@@ -26,8 +26,8 @@ fi
 
 apt install -y git
 
-git clone https://github.com/DoJoMan18/fs22_ptero ./temp
-cp -r ./temp/fsroot /mnt/server/
+git clone https://github.com/DoJoMan18/fs22_ptero.git ./temp
+cp -r ./temp/rootfs/. /mnt/server/
 chmod +x /mnt/server/start.sh
 rm -rf ./temp
 
@@ -47,7 +47,7 @@ chown -R root:root /mnt
 export HOME=/mnt/server
 
 ## install game using steamcmd
-./steamcmd.sh +force_install_dir /mnt/server/FS22 +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +@sSteamCmdForcePlatformType windows +app_update ${SRCDS_APPID} ${INSTALL_FLAGS} +quit ## other flags may be needed depending on install. looking at you cs 1.6
+# ./steamcmd.sh +force_install_dir /mnt/server/FS22 +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +@sSteamCmdForcePlatformType windows +app_update ${SRCDS_APPID} ${INSTALL_FLAGS} +quit ## other flags may be needed depending on install. looking at you cs 1.6
 
 # set up 32 bit libraries
 mkdir -p /mnt/server/.steam/sdk32
