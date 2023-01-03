@@ -47,6 +47,5 @@ USER    container
 WORKDIR	/home/container
 
 # Setting default shit
-COPY rootfs /home/container
 COPY ./entrypoint.sh /entrypoint.sh
 CMD ["/bin/bash", "/entrypoint.sh"]
