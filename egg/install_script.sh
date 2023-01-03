@@ -48,7 +48,7 @@ export HOME=/mnt/server
 
 ## install game using steamcmd
 mkdir -p /mnt/server/steamapps/fs22
-# ./steamcmd.sh +force_install_dir /mnt/server/steamapps/fs22 +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +@sSteamCmdForcePlatformType windows +app_update ${SRCDS_APPID} ${INSTALL_FLAGS} +quit ## other flags may be needed depending on install. looking at you cs 1.6
+./steamcmd.sh +force_install_dir /mnt/server/steamapps/fs22 +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +@sSteamCmdForcePlatformType windows +app_update ${SRCDS_APPID} ${INSTALL_FLAGS} +quit ## other flags may be needed depending on install. looking at you cs 1.6
 
 # set up 32 bit libraries
 mkdir -p /mnt/server/.steam/sdk32
@@ -59,15 +59,15 @@ mkdir -p /mnt/server/.steam/sdk64
 cp -v linux64/steamclient.so /mnt/server/.steam/sdk64/steamclient.so
 
 # Setting default variables
-# if [ -n "${ADM_PASS}" ]; then
-#     sed -i "s/<passphrase>webpassword<\/passphrase>/<passphrase>${ADM_PASS}<\/passphrase>/" /mnt/server/steamapps/fs22/dedicatedServer.xml
-#     sed -i "s/<admin_password><\/admin_password>/<admin_password>${ADM_PASS}<\/admin_password>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
-# fi
-
 if [ -n "${HTTP_PORT}" ]; then
-    sed -i "s/    listen 1234;/    listen ${HTTP_PORT};/" /mnt/server/.nginx/nginx/conf.d/default.conf
+    sed -i "s/    listen 80;/    listen ${HTTP_PORT};/" /mnt/server/.nginx/nginx/conf.d/default.conf
 fi
 
-# if [ -n "${server.build.default.port}" ]; then
-#     sed -i "s/<port>10823<\/port>/<port>${server.build.default.port}<\/port>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
-# fi
+if [ -n "${ADM_PASS}" ]; then
+    sed -i "s/<passphrase>webpassword<\/passphrase>/<passphrase>${ADM_PASS}<\/passphrase>/" /mnt/server/steamapps/fs22/dedicatedServer.xml
+    sed -i "s/<admin_password><\/admin_password>/<admin_password>${ADM_PASS}<\/admin_password>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
+fi
+
+if [ -n "${server.build.default.port}" ]; then
+    sed -i "s/<port>10823<\/port>/<port>${server.build.default.port}<\/port>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
+fi
