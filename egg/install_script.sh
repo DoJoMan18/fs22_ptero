@@ -67,6 +67,10 @@ cp -v linux64/steamclient.so /mnt/server/.steam/sdk64/steamclient.so
 #     sed -i "s/<admin_password><\/admin_password>/<admin_password>${ADM_PASS}<\/admin_password>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
 # fi
 
+if [ -n "${HTTP_PORT}" ]; then
+    sed -i "s/    listen 1234;/    listen ${HTTP_PORT};/" /mnt/server/.nginx/nginx/conf.d/default.conf
+fi
+
 # if [ -n "${server.build.default.port}" ]; then
 #     sed -i "s/<port>10823<\/port>/<port>${server.build.default.port}<\/port>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
 # fi
