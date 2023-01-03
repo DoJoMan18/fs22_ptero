@@ -7,3 +7,7 @@ echo "⟳ Starting Nginx..."
 echo "⟳ Starting FS22..."
 echo "✓ Successfully started"
 wine /home/container/steamapps/fs22/dedicatedServer.exe
+
+sleep 10
+
+clear
