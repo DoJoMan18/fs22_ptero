@@ -24,8 +24,6 @@ else
     echo -e "user set to ${STEAM_USER}"
 fi
 
-apt install -y git
-
 git clone https://github.com/DoJoMan18/fs22_ptero.git ./temp
 cp -r ./temp/rootfs/. /mnt/server/
 chmod +x /mnt/server/start.sh
