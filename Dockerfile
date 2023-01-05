@@ -7,9 +7,9 @@ LABEL   author="DoJoMan18" maintainer="fs22-ptero@dakinspecteurs.nl"
 
 ## install required packages
 RUN     dpkg --add-architecture i386 \
-    && apt update -y \
+    && apt update -y  && apt upgrade -y \
     && apt install -y --install-recommends locales locales-all gnupg2 tzdata software-properties-common libntlm0 winbind xvfb xauth python3 libncurses5:i386 libncurses6:i386 nginx curl file \
-    unzip libcurl4:i386 libcurl4 libstdc++6 ca-certificates git libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-2.0-0 winbind openjdk-11-jdk mesa-vulkan-drivers:i386
+    unzip libcurl4:i386 libcurl4 libstdc++6 ca-certificates git libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-2.0-0 winbind openjdk-11-jdk libvulkan1 mesa-vulkan-drivers
 # Default locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen
@@ -29,7 +29,7 @@ ENV LANG=en_US.UTF-8 \
 RUN mkdir -pm755 /etc/apt/keyrings \
     && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
     && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bullseye/winehq-bullseye.sources \
-    && apt update \
+    && apt update -y  && apt upgrade -y \
     && apt install -y --install-recommends winehq-staging cabextract winbind xvfb
 
 # Set up Winetricks
