@@ -9,7 +9,7 @@ LABEL   author="DoJoMan18" maintainer="fs22-ptero@dakinspecteurs.nl"
 RUN     dpkg --add-architecture i386 \
     && apt update -y  && apt upgrade -y \
     && apt install -y --install-recommends locales locales-all gnupg2 tzdata software-properties-common libntlm0 winbind xvfb xauth python3 libncurses5:i386 libncurses6:i386 nginx curl file \
-    unzip libcurl4:i386 libcurl4 libstdc++6 ca-certificates git libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-2.0-0 winbind openjdk-11-jdk libvulkan1 mesa-vulkan-drivers
+    unzip libcurl4:i386 libcurl4 libstdc++6 ca-certificates git libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-2.0-0 winbind openjdk-11-jdk libvulkan1 mesa-vulkan-drivers libsdl2-2.0-0
 # Default locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen
