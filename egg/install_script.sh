@@ -26,12 +26,6 @@ if [ ! -d /mnt/server ]; then
     mkdir -p /mnt/server/
 fi
 
-# setup dxvk
-mkdir -p /tmp/dxvk/
-cd /tmp/dxvk/ 
-wget -c https://github.com/doitsujin/dxvk/releases/download/v2.0/dxvk-2.0.tar.gz -O - | tar -xz
-export WINEPREFIX=/mnt/server/.wine /tmp/dxvk/setup_dxvk.sh
-
 ## download and install steamcmd
 cd /tmp
 curl -sSL -o steamcmd.tar.gz http://media.steampowered.com/installer/steamcmd_linux.tar.gz
