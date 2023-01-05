@@ -11,8 +11,6 @@
 # ADM_PASS - Admin password
 # HTTP_PORT - HTTP PORT
 
-
-
 # just in case someone removed the SteamCMD defaults.
 if [[ "${STEAM_USER}" == "" ]] || [[ "${STEAM_PASS}" == "" ]]; then
     echo -e "steam user is not set.\n"
@@ -23,11 +21,6 @@ if [[ "${STEAM_USER}" == "" ]] || [[ "${STEAM_PASS}" == "" ]]; then
 else
     echo -e "user set to ${STEAM_USER}"
 fi
-
-git clone https://github.com/DoJoMan18/fs22_ptero.git ./temp
-cp -r ./temp/rootfs/. /mnt/server/
-chmod +x /mnt/server/start.sh
-rm -rf ./temp
 
 if [ ! -d /mnt/server ]; then
     mkdir -p /mnt/server/
@@ -56,6 +49,11 @@ cp -v linux32/steamclient.so /mnt/server/.steam/sdk32/steamclient.so
 mkdir -p /mnt/server/.steam/sdk64
 cp -v linux64/steamclient.so /mnt/server/.steam/sdk64/steamclient.so
 
+git clone https://github.com/DoJoMan18/fs22_ptero.git ./temp
+cp -r ./temp/rootfs/. /mnt/server/
+chmod +x /mnt/server/start.sh
+rm -rf ./temp
+
 # Setting default variables
 if [ -n "${HTTP_PORT}" ]; then
     sed -i "s/    listen 80;/    listen ${HTTP_PORT};/" /mnt/server/.nginx/nginx/conf.d/default.conf
@@ -66,6 +64,6 @@ if [ -n "${ADM_PASS}" ]; then
     sed -i "s/<admin_password><\/admin_password>/<admin_password>${ADM_PASS}<\/admin_password>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
 fi
 
-if [ -n "${server.build.default.port}" ]; then
-    sed -i "s/<port>10823<\/port>/<port>${server.build.default.port}<\/port>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
+if [ -n "${SERVER_PORT}" ]; then
+    sed -i "s/<port>10823<\/port>/<port>${SERVER_PORT}<\/port>/" "/mnt/server/My Games/FarmingSimulator2022/dedicated_server/dedicatedServerConfig.xml"
 fi
