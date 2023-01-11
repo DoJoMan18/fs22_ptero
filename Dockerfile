@@ -5,11 +5,20 @@ FROM    ghcr.io/parkervcp/yolks:debian
 
 LABEL   author="DoJoMan18" maintainer="fs22-ptero@dakinspecteurs.nl"
 
+# Update Sources
+RUN echo "deb http://deb.debian.org/debian stretch main" | tee -a /etc/apt/sources.list \
+    && echo "deb-src http://deb.debian.org/debian stretch main" | tee -a /etc/apt/sources.list \
+    && echo "deb http://deb.debian.org/debian-security/ stretch/updates main" | tee -a /etc/apt/sources.list \
+    && echo "deb-src http://deb.debian.org/debian-security/ stretch/updates main" | tee -a /etc/apt/sources.list \
+    && echo "deb http://deb.debian.org/debian stretch-updates main" | tee -a /etc/apt/sources.list \
+    && echo "deb-src http://deb.debian.org/debian stretch-updates main" | tee -a /etc/apt/sources.list  
+
 ## install required packages
 RUN     dpkg --add-architecture i386 \
-    && apt update -y  && apt upgrade -y \
-    && apt install -y --install-recommends locales locales-all gnupg2 tzdata software-properties-common libntlm0 winbind xvfb xauth python3 libncurses5:i386 libncurses6:i386 nginx curl file \
-    unzip libcurl4:i386 libcurl4 libstdc++6 ca-certificates git libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-2.0-0 winbind openjdk-11-jdk libvulkan1 mesa-vulkan-drivers
+    && apt update -y  && apt upgrade -y && apt dist-upgrade -y \
+    && apt install -y --install-recommends locales locales-all gnupg2 tzdata software-properties-common libntlm0 xauth python3 libncurses5:i386 libncurses6:i386 nginx curl file \
+    unzip libcurl4:i386 libcurl4 libstdc++6 ca-certificates git libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-2.0-0 winbind openjdk-11-jdk winbind xvfb
+
 # Default locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen
@@ -30,7 +39,7 @@ RUN mkdir -pm755 /etc/apt/keyrings \
     && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
     && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bullseye/winehq-bullseye.sources \
     && apt update -y  && apt upgrade -y \
-    && apt install -y --install-recommends winehq-staging cabextract winbind xvfb
+    && apt install -y --install-recommends winehq-stable dxvk-wine64-development
 
 # Set up Winetricks
 RUN	    wget -q -O /usr/sbin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
