@@ -26,21 +26,20 @@ if [ ! -d /mnt/server ]; then
     mkdir -p /mnt/server/
 fi
 
+# cd /tmp
+# curl -sSL -o vkd3d-proton-2.8.tar.zst https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v2.8/vkd3d-proton-2.8.tar.zst
+# mkdir -p /mnt/server/.vkd3d/
+# apt install zstd
+# tar -I zstd -xvf vkd3d-proton-2.8.tar.zst -C /mnt/server/.vkd3d
+# cd /mnt/server/.vkd3d/vkd3d-proton-2.8
+# chmod +x /mnt/server/.vkd3d/vkd3d-proton-2.8/setup_vkd3d_proton.sh
+
 ## download and install steamcmd
 cd /tmp
 curl -sSL -o steamcmd.tar.gz http://media.steampowered.com/installer/steamcmd_linux.tar.gz
 mkdir -p /mnt/server/.steam/steamcmd
 tar -xzvf steamcmd.tar.gz -C /mnt/server/.steam/steamcmd
 cd /mnt/server/.steam/steamcmd
-
-cd /tmp
-curl -sSL -o vkd3d-proton-2.8.tar.zst https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v2.8/vkd3d-proton-2.8.tar.zst
-mkdir -p /mnt/server/.vkd3d/
-apt install zstd
-tar -I zstd -xvf steamcmd.tar.gz -C /mnt/server/.vkd3d
-cd /mnt/server/.vkd3d
-chmod +x ./setup_vkd3d_proton.sh
-./setup_vkd3d_proton.sh install
 
 ## needs to be used for steamcmd to operate correctly
 chown -R root:root /mnt
